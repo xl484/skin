@@ -1,0 +1,6 @@
+{
+  "name": "Bio-Tech Skincare Booth",
+  "description": "An immersive cyberpunk AI skincare booth that performs real-time bio-scans, facial topological skin analysis, customized recipe formulation, and premium dynamic treatment plans.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: #080c22;
+  --color-surface: #0e1227;
+  --color-surface-dim: #0e1227;
+  --color-surface-bright: #34384f;
+  --color-surface-container-lowest: #080c22;
+  --color-surface-container-low: #161a30;
+  --color-surface-container: #1a1e34;
+  --color-surface-container-high: #25293f;
+  --color-surface-container-highest: #2f334b;
+  --color-on-surface: #dee0ff;
+  --color-on-surface-variant: #b9cac9;
+  --color-outline: #839493;
+  --color-outline-variant: #3a4a49;
+  --color-primary-fixed: #00fbfb;
+  --color-primary-fixed-dim: #00dddd;
+  --color-on-primary-fixed: #002020;
+  --color-on-primary-fixed-variant: #004f4f;
+  --color-secondary-fixed: #72ff70;
+  --color-secondary-fixed-dim: #00e639;
+  --color-on-secondary-fixed: #002203;
+  --color-tertiary-fixed: #ffdea1;
+  --color-tertiary-fixed-dim: #fbbc1a;
+  --color-on-tertiary-fixed: #261900;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Custom Cyberpunk & Clinical Styles */
+body {
+  background-color: #080c22;
+  color: #dee0ff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Atmospheric grid lines */
+.grid-overlay {
+  background-image: 
+    linear-gradient(rgba(0, 251, 251, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 251, 251, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glassmorphism panels */
+.glass-panel {
+  background: rgba(14, 18, 39, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 251, 251, 0.15);
+  box-shadow: inset 0 0 20px rgba(0, 251, 251, 0.03);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  border-color: rgba(0, 251, 251, 0.3);
+  box-shadow: 0 0 20px rgba(0, 251, 251, 0.08), inset 0 0 20px rgba(0, 251, 251, 0.05);
+}
+
+/* Brackets decoration */
+.corner-brackets::before,
+.corner-brackets::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #00fbfb;
+  pointer-events: none;
+}
+
+.corner-brackets::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Scanning vertical laser line */
+.scanning-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #00fbfb, transparent);
+  box-shadow: 0 0 10px #00fbfb, 0 0 20px rgba(0, 251, 251, 0.5);
+  animation: scan 4s linear infinite;
+  z-index: 10;
+}
+
+@keyframes scan {
+  0% { top: 0%; opacity: 0; }
+  5% { opacity: 0.8; }
+  95% { opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Subtle scanning background scanlines */
+.scanlines-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 251, 251, 0.015) 50%,
+    rgba(0, 251, 251, 0.015)
+  );
+  background-size: 100% 6px;
+}
+
+/* Fingerprint pulse and heartbeat signals */
+.pulse-glow {
+  animation: pulse-ring 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(0, 251, 251, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(0, 251, 251, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 251, 251, 0); }
+}
+
+.alert-pulse-glow {
+  animation: alert-pulse-ring 2s infinite ease-in-out;
+}
+
+@keyframes alert-pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(255, 180, 171, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 180, 171, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 180, 171, 0); }
+}
+
+/* Holographic sweep border */
+.holographic-border {
+  position: relative;
+}
+
+.holographic-border::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(0, 251, 251, 0.4) 0%, transparent 50%, rgba(0, 251, 251, 0.15) 100%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Cyber Button Styles */
+.btn-cyber {
+  border: 1px solid #00fbfb;
+  color: #00fbfb;
+  background: rgba(0, 251, 251, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cyber::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 251, 251, 0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-cyber:hover::after {
+  left: 100%;
+}
+
+.btn-cyber:hover {
+  background: #00fbfb;
+  color: #002020;
+  box-shadow: 0 0 25px rgba(0, 251, 251, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-cyber:active {
+  transform: translateY(1px);
+}
+
+/* Cyber Inputs */
+.cyber-input {
+  background: rgba(8, 12, 34, 0.4);
+  border: none;
+  border-bottom: 1px solid #00fbfb;
+  color: #dee0ff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-input:focus {
+  outline: none;
+  border-bottom-color: #00dddd;
+  box-shadow: 0 4px 12px -4px rgba(0, 251, 251, 0.4);
+}
+
+/* Floating custom particles */
+.particle-effect {
+  position: absolute;
+  background: #00fbfb;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 10px #00fbfb;
+}
+
+/* Custom WebGL-like Spin */
+.hud-spin-slow {
+  animation: hud-spin 25s linear infinite;
+}
+
+.hud-spin-fast {
+  animation: hud-spin-reverse 15s linear infinite;
+}
+
+@keyframes hud-spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes hud-spin-reverse {
+  100% { transform: rotate(-360deg); }
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
